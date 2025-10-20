@@ -65,7 +65,7 @@ function AppointmentForm() {
           <option value="">-- Choose Doctor --</option>
           {doctors.map((doc) => (
             <option key={doc._id} value={doc._id}>
-              {doc.name} ({doc.specialization})
+              {doc.name} (`${doc.specialization}  Nerologist `)
             </option>
           ))}
         </select>

@@ -15,7 +15,7 @@ function Navbar() {
   return (
     <div className="container">
       <div className="imge">
-        <img src="" alt="logo" />
+        <img src='/image1.png' alt="logo" />
       </div>
 
       <ul className="nav">
@@ -29,6 +29,7 @@ function Navbar() {
 
         {token && role === "patient" && <li><Link to="/book-appointment" className='butto'>Book Appointment</Link></li>}
         {token && role === "patient" && <li><Link to="/dashboard" className='butto'>Patient Dashboard</Link></li>}
+        
         {token && role === "doctor" && <li><Link to="/doctor-dashboard" className='butto'>Doctor Dashboard</Link></li>}
 
       </ul>
