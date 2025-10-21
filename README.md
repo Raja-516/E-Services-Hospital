@@ -1,70 +1,103 @@
-# Getting Started with Create React App
+🩺 Hospital Management System — Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the frontend of the Hospital Management System built using React.js.
+It provides a responsive and dynamic interface for patients, doctors, and organizations to interact with the backend services.
 
-## Available Scripts
+🧠 Overview
 
-In the project directory, you can run:
+The frontend provides:
 
-### `npm start`
+Patient registration and login
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Doctor registration (via organizations)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Booking and managing appointments
 
-### `npm test`
+Viewing doctors under organizations
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Organization dashboard with doctors and appointments
 
-### `npm run build`
+Token-based authentication handling and role-based rendering
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+🚀 Key Functionalities
+Functionality	Description
+🏢 Organization Dashboard	View total doctors, appointments, add new doctors.
+👨‍⚕️ Doctor Listing	Shows doctors under specific organizations.
+🧑‍🤝‍🧑 Patient Dashboard	Book appointments, view booked appointments.
+📅 Dynamic Appointment Form	Shows available organizations → doctors dynamically.
+🔐 Authentication	JWT-based login and signup for patients, doctors, and orgs.
+🌐 Routing	Client-side routing using react-router-dom.
+⚡ Reusable Components	Navbar, forms, and cards used across dashboards.
+🧩 Features Summary
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+✅ Role-based navigation (Patient/Doctor/Organization)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+✅ Secure token storage in localStorage
 
-### `npm run eject`
+✅ Dynamically fetched data from backend APIs
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+✅ Clean, modular component structure
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+✅ Easy to extend (add chat, reports, or doctor schedules)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+🧱 Folder Structure
+frontend/
+│
+├── 📂 public/
+│   └── index.html                # Main HTML template
+│
+├── 📂 src/
+│   ├── 📂 api/
+│   │   └── axiosConfig.js        # Axios base configuration for backend calls
+│   │
+│   ├── 📂 components/
+│   │   ├── Navbar.jsx            # Top navigation bar
+│   │   ├── AppointmentForm.jsx   # Form for booking appointments
+│   │   ├── OrgDashboard.jsx      # Organization dashboard
+│   │   ├── PatientDashboard.jsx  # Patient dashboard
+│   │   ├── DoctorDashboard.jsx   # Doctor dashboard
+│   │   └── CreateDoctor.jsx      # Form to add a doctor (Org only)
+│   │
+│   ├── 📂 pages/
+│   │   ├── Home.jsx
+│   │   ├── Login.jsx
+│   │   └── Signup.jsx
+│   │
+│   ├── App.js                     # Main React app & routes
+│   ├── index.js                   # Entry point
+│   └── styles.css                 # Global CSS
+│
+├── package.json
+└── README.md
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+📦 Dependencies
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Package         	Use
+react	            UI library
+react-dom	        DOM rendering
+react-router-dom	Routing and navigation
+axios	            HTTP client to call backend APIs
+react-scripts	    React development scripts
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+💡 Future Enhancements
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Admin features for approving doctors
 
-### Analyzing the Bundle Size
+Add real-time notifications for appointments
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Improve styling with TailwindCSS or Material-UI
 
-### Making a Progressive Web App
+Add calendar view for doctors and patients
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Add search/filter for doctors by specialization or org
 
-### Advanced Configuration
+Integrate chat or teleconsultation features
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+✨ Author
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Raja Akula
+Full Stack Development |  Frontend Developer | Hospital Management System

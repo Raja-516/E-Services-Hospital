@@ -8,6 +8,12 @@ import Dashboard from "./components/Dashboard";
 import DoctorDashboard from "./components/DoctorDashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AppointmentForm from "./components/AppointmentForm";
+import OrgLogin from "./pages/OrgLogin";
+import OrgSignup from "./pages/OrgSignup";
+import OrgDashboardPage from "./pages/OrgDashboardPage";
+import OrgDashboard from "./components/OrgDashboard";
+import OrgAppointments from "./pages/OrgAppointments";
+import CreateDoctor from "./components/CreateDoctor";
 
 function App() {
   return (
@@ -33,6 +39,12 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route path="/org/dashboard" element={<OrgDashboard />} />
+        <Route path="/org/create-doctor" element={<CreateDoctor />}/>
+        <Route path="/org/login" element={<OrgLogin />} />
+  <Route path="/org/signup" element={<OrgSignup />} />
+  <Route path="/org/dashboard/*" element={<OrgDashboardPage />} />
+  <Route path="/org/appointments" element={<OrgAppointments />} />
         <Route
   path="/book-appointment"
   element={

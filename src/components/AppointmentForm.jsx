@@ -2,74 +2,125 @@ import React, { useState, useEffect } from "react";
 import axios from "../api/axiosConfig";
 
 function AppointmentForm() {
+  const [orgs, setOrgs] = useState([]);
   const [doctors, setDoctors] = useState([]);
+  const [loadingDocs, setLoadingDocs] = useState(false);
   const [formData, setFormData] = useState({
+    orgId: "",
     doctorId: "",
     date: "",
     time: "",
   });
 
-  // Get JWT token and user ID from localStorage
   const token = localStorage.getItem("token");
   const patientId = localStorage.getItem("userId");
 
-  // Fetch all doctors for dropdown
+  // Fetch all organizations initially
   useEffect(() => {
-    axios
-      .get("/auth/doctors", {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((res) => setDoctors(res.data))
-      .catch((err) => console.log("Error fetching doctors:", err));
+    const fetchOrgs = async () => {
+      try {
+        const res = await axios.get("/organization", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setOrgs(res.data);
+      } catch (err) {
+        console.error("Error fetching organizations:", err);
+      }
+    };
+    fetchOrgs();
   }, [token]);
 
-  // Handle form submission
-  const handleSubmit = (e) => {
+  // Fetch doctors when organization changes
+  useEffect(() => {
+    const fetchDoctors = async () => {
+      if (!formData.orgId) return;
+      setLoadingDocs(true);
+      try {
+        const res = await axios.get(`/organization/${formData.orgId}/doctors`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setDoctors(res.data);
+      } catch (err) {
+        console.error("Error fetching doctors:", err);
+        setDoctors([]);
+      } finally {
+        setLoadingDocs(false);
+      }
+    };
+    fetchDoctors();
+  }, [formData.orgId, token]);
+
+  // Handle form submit
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.doctorId || !formData.date || !formData.time) {
+    if (!formData.orgId || !formData.doctorId || !formData.date || !formData.time) {
       alert("Please fill all fields!");
       return;
     }
 
-    axios
-      .post(
+    try {
+      await axios.post(
         "/appointments",
-        { ...formData, patientId }, // sending patientId, doctorId, date, time
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      )
-      .then((res) => {
-        alert("Appointment booked successfully!");
-        setFormData({ doctorId: "", date: "", time: "" });
-      })
-      .catch((err) => {
-        console.error(err);
-        alert("Booking failed. Please try again.");
-      });
+        { ...formData, patientId },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      alert("Appointment booked successfully!");
+      setFormData({ orgId: "", doctorId: "", date: "", time: "" });
+      setDoctors([]);
+    } catch (err) {
+      console.error(err);
+      alert(err.response?.data?.error || "Booking failed. Please try again.");
+    }
   };
 
   return (
     <div className="form-container">
       <h2>Book Appointment</h2>
+
       <form onSubmit={handleSubmit}>
-        <label>Select Doctor:</label>
+        {/* Organization Selection */}
+        <label>Select Organization:</label>
         <select
-          value={formData.doctorId}
+          value={formData.orgId}
           onChange={(e) =>
-            setFormData({ ...formData, doctorId: e.target.value })
+            setFormData({ ...formData, orgId: e.target.value, doctorId: "" })
           }
           required
         >
-          <option value="">-- Choose Doctor --</option>
-          {doctors.map((doc) => (
-            <option key={doc._id} value={doc._id}>
-              {doc.name} (`${doc.specialization}  Nerologist `)
+          <option value="">-- Choose Organization --</option>
+          {orgs.map((org) => (
+            <option key={org._id} value={org._id}>
+              {org.name}
             </option>
           ))}
         </select>
 
+        {/* Doctor Selection */}
+        <label>Select Doctor:</label>
+        {loadingDocs ? (
+          <p>Loading doctors...</p>
+        ) : (
+          <select
+            value={formData.doctorId}
+            onChange={(e) =>
+              setFormData({ ...formData, doctorId: e.target.value })
+            }
+            required
+            disabled={!formData.orgId}
+          >
+            <option value="">
+              {formData.orgId ? "-- Choose Doctor --" : "Select an organization first"}
+            </option>
+            {doctors.map((doc) => (
+              <option key={doc._id} value={doc._id}>
+                {doc.name} {doc.specialization ? `(${doc.specialization})` : ""}
+              </option>
+            ))}
+          </select>
+        )}
+
+        {/* Date */}
         <label>Date:</label>
         <input
           type="date"
@@ -78,6 +129,7 @@ function AppointmentForm() {
           required
         />
 
+        {/* Time */}
         <label>Time:</label>
         <input
           type="time"
