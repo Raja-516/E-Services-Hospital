@@ -6,6 +6,9 @@ function OrgDashboard() {
   const [doctors, setDoctors] = useState([]);
   const [appointmentsCount, setAppointmentsCount] = useState(null);
   const [loading, setLoading] = useState(true);
+  
+  
+  
 useEffect(() => {
   const fetchDoctors = async () => {
   try {
@@ -45,6 +48,12 @@ setAppointmentsCount(Array.isArray(res.data) ? res.data.length : 0);
     fetchAppointmentsCount();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  
+
+  
+
+  
+
 
   return (
     <div className="org-dashboard">
@@ -63,7 +72,12 @@ setAppointmentsCount(Array.isArray(res.data) ? res.data.length : 0);
           <Link to="/org/appointments">View Appointments</Link>
         </div>
       </div>
+     
+  
+ 
 
+  
+    
       <section>
         <h3>Doctors</h3>
         {doctors.length === 0 ? <p>No doctors yet.</p> : (

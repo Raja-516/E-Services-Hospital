@@ -14,6 +14,8 @@ import OrgDashboardPage from "./pages/OrgDashboardPage";
 import OrgDashboard from "./components/OrgDashboard";
 import OrgAppointments from "./pages/OrgAppointments";
 import CreateDoctor from "./components/CreateDoctor";
+import Services from "./components/Services";
+import Doctors from "./components/Doctors";
 
 function App() {
   return (
@@ -39,6 +41,8 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route path="/services" element={<Services />} />
+        <Route path="/doctors" element={<Doctors />} />
         <Route path="/org/dashboard" element={<OrgDashboard />} />
         <Route path="/org/create-doctor" element={<CreateDoctor />}/>
         <Route path="/org/login" element={<OrgLogin />} />
