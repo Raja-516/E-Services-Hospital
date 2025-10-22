@@ -25,6 +25,7 @@ function OrgAppointments() {
             <p><b>Patient:</b> {a.patientId?.name}</p>
             <p><b>Date:</b> {a.date}</p>
             <p><b>Time:</b> {a.time}</p>
+            
           </div>
         ))
       )}
