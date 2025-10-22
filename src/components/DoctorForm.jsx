@@ -36,7 +36,7 @@ const handleSubmit = async (e) => {
   const token = localStorage.getItem("token"); // ✅ get token
 
   try {
-    const res = await axios.post(
+     await axios.post(
       "/organization/doctors",
       { ...data, timings: data.timings },
       { headers: { Authorization: `Bearer ${token}` } } // ✅ add token here

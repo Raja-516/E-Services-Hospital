@@ -22,7 +22,7 @@ const DoctorAvailability = () => {
 
   const updateAvailability = async () => {
     try {
-      const res = await axios.put(
+       await axios.put(
   `/users/${doctorId}/availability`,
   { days, timeSlots },
   {
