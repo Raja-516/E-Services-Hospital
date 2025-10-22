@@ -13,9 +13,11 @@ import OrgSignup from "./pages/OrgSignup";
 import OrgDashboardPage from "./pages/OrgDashboardPage";
 import OrgDashboard from "./components/OrgDashboard";
 import OrgAppointments from "./pages/OrgAppointments";
-import CreateDoctor from "./components/CreateDoctor";
+
 import Services from "./components/Services";
 import Doctors from "./components/Doctors";
+import DoctorAvailability from "./components/DoctorAvailability";
+import DoctorForm from "./components/DoctorForm";
 
 function App() {
   return (
@@ -44,11 +46,12 @@ function App() {
         <Route path="/services" element={<Services />} />
         <Route path="/doctors" element={<Doctors />} />
         <Route path="/org/dashboard" element={<OrgDashboard />} />
-        <Route path="/org/create-doctor" element={<CreateDoctor />}/>
+        <Route path="/org/create-doctor" element={<DoctorForm />}/>
         <Route path="/org/login" element={<OrgLogin />} />
   <Route path="/org/signup" element={<OrgSignup />} />
   <Route path="/org/dashboard/*" element={<OrgDashboardPage />} />
   <Route path="/org/appointments" element={<OrgAppointments />} />
+  <Route path="/org/doctors/time" element={<DoctorAvailability />} />
         <Route
   path="/book-appointment"
   element={

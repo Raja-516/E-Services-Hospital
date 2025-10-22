@@ -43,7 +43,10 @@ function Navbar() {
 
         {/* Doctor Section */}
         {token && role === "doctor" && (
+          <>
           <li><Link to="/doctor-dashboard" className="butto">Doctor Dashboard</Link></li>
+          <li><Link to="/org/doctors/time" className="butto">Doctor slot</Link></li>
+          </>
         )}
 
         {/* Organization Section */}

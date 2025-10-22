@@ -4,11 +4,10 @@ import axios from "../api/axiosConfig";
 function DoctorDashboard() {
   const [appointments, setAppointments] = useState([]);
   const [prescriptionInputs, setPrescriptionInputs] = useState({});
-  const [statusUpdates, setStatusUpdates] = useState({});
+  const [statusUpdates, setStatusUpdates] = useState({}); // ✅ new state
   const token = localStorage.getItem("token");
-  const doctorId = localStorage.getItem("userId"); // logged-in doctor
+  const doctorId = localStorage.getItem("userId");
 
-  // Fetch all appointments for this doctor
   useEffect(() => {
     axios
       .get(`/appointments/doctor/${doctorId}`, {
@@ -18,7 +17,30 @@ function DoctorDashboard() {
       .catch((err) => console.log("Error fetching appointments:", err));
   }, [doctorId, token]);
 
-  // Update prescription for an appointment
+  // ✅ Add this new function BELOW your useEffect
+  const updateStatus = async (id) => {
+    const newStatus = statusUpdates[id];
+    if (!newStatus) {
+      alert("Please select a status.");
+      return;
+    }
+
+    try {
+      const res = await axios.put(
+        `/appointments/${id}/status`,
+        { status: newStatus },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      alert("Status updated!");
+      setAppointments((prev) =>
+        prev.map((app) => (app._id === id ? res.data : app))
+      );
+    } catch (err) {
+      console.log("Error updating status:", err);
+    }
+  };
+
+  // ✅ Keep your existing updatePrescription function here too
   const updatePrescription = async (id) => {
     const prescription = prescriptionInputs[id];
     if (!prescription) {
@@ -42,29 +64,6 @@ function DoctorDashboard() {
     }
   };
 
-  // Update appointment status
-  const updateStatus = async (id) => {
-    const newStatus = statusUpdates[id];
-    if (!newStatus) {
-      alert("Please select a status.");
-      return;
-    }
-
-    try {
-      const res = await axios.put(
-        `/appointments/${id}/status`,
-        { status: newStatus },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-      alert("Status updated!");
-      setAppointments((prev) =>
-        prev.map((app) => (app._id === id ? res.data : app))
-      );
-    } catch (err) {
-      console.log("Error updating status:", err);
-    }
-  };
-
   return (
     <div className="dashboard">
       <h2>Doctor Dashboard</h2>
@@ -78,11 +77,11 @@ function DoctorDashboard() {
               <p><strong>Email:</strong> {app.patientId?.email}</p>
               <p><strong>Date:</strong> {app.date}</p>
               <p><strong>Time:</strong> {app.time}</p>
-
-              {/* Appointment status */}
               <p><strong>Status:</strong> {app.status || "Pending"}</p>
+
+              {/* ✅ Dropdown to select new status */}
               <select
-                value={statusUpdates[app._id] || app.status || "Pending"}
+                value={statusUpdates[app._id] || ""}
                 onChange={(e) =>
                   setStatusUpdates({
                     ...statusUpdates,
@@ -90,14 +89,15 @@ function DoctorDashboard() {
                   })
                 }
               >
+                <option value="">Select Status</option>
                 <option value="Pending">Pending</option>
                 <option value="Confirmed">Confirmed</option>
                 <option value="Completed">Completed</option>
                 <option value="Cancelled">Cancelled</option>
               </select>
+
               <button onClick={() => updateStatus(app._id)}>Update Status</button>
 
-              {/* Prescription section */}
               <input
                 type="text"
                 placeholder="Write prescription"
