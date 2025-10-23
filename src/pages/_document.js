@@ -6,8 +6,8 @@ export default function Document() {
     <Html lang="en">
       <Head>
         {/* Preload only your critical global CSS */}
-        <link rel="preload" href="/styles/globals.css" as="style" />
-        <link rel="stylesheet" href="/styles/globals.css" />
+        {/* <link rel="preload" href="/styles/globals.css" as="style" />
+        <link rel="stylesheet" href="/styles/globals.css" /> */}
 
         {/* Optional: Add other meta tags or fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
