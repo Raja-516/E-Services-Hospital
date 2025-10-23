@@ -55,9 +55,9 @@ function App() {
         <Route
   path="/book-appointment"
   element={
-    <ProtectedRoute>
+    
       <AppointmentForm />
-    </ProtectedRoute>
+    
   }
 />
       </Routes>
